@@ -10,16 +10,12 @@ async function runSeed(): Promise<void> {
   await dataSource.initialize();
   try {
     await dataSource.transaction(async (manager) => {
-      // Cleanup existing data using DELETE to avoid TRUNCATE + FK restrictions
       await manager.query('DELETE FROM "players"');
       await manager.query('DELETE FROM "tables"');
 
-      // Create demo tables
       const tableNames = ['Blackjack', 'Poker', 'Roulette'];
       const tableEntities = tableNames.map((name) => manager.create(TableOrmEntity, { name }));
       const savedTables = await manager.save(TableOrmEntity, tableEntities);
-
-      // Create 20 players with round-robin assignment to tables
       const players: PlayerOrmEntity[] = [];
       for (let i = 1; i <= 20; i++) {
         const index = (i - 1) % savedTables.length;
@@ -37,7 +33,6 @@ async function runSeed(): Promise<void> {
       await manager.save(PlayerOrmEntity, players);
     });
 
-    // eslint-disable-next-line no-console
     console.log('Seed completed successfully');
   } finally {
     await dataSource.destroy();
@@ -45,8 +40,6 @@ async function runSeed(): Promise<void> {
 }
 
 runSeed().catch((err) => {
-  // eslint-disable-next-line no-console
   console.error('Seed failed', err);
   process.exit(1);
 });
-

@@ -7,5 +7,3 @@ import { PlayersModule as PlayersAppModule } from '@application/players/players.
   controllers: [PlayersController],
 })
 export class PlayersHttpModule {}
-
-

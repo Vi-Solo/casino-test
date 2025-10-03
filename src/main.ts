@@ -20,12 +20,10 @@ async function bootstrap(): Promise<void> {
 
   const { general } = appConfig();
   await app.listen(general.port);
-  // eslint-disable-next-line no-console
   console.log(`HTTP server listening on port ${general.port}`);
 }
 
 bootstrap().catch((error) => {
-  // eslint-disable-next-line no-console
   console.error('Failed to bootstrap application', error);
   process.exit(1);
 }); 

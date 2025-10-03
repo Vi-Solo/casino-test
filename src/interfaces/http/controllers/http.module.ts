@@ -14,5 +14,3 @@ import { DomainExceptionFilter } from '@interfaces/http/filters/domain-exception
   ],
 })
 export class HttpModule {}
-
-

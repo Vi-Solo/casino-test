@@ -8,5 +8,3 @@ import { PlayersModule as PlayersAppModule } from '@application/players/players.
   controllers: [TablesController],
 })
 export class TablesHttpModule {}
-
-
