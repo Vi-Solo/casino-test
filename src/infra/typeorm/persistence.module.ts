@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TableOrmEntity } from './entities/table.orm-entity';
 import { PlayerOrmEntity } from './entities/player.orm-entity';
-import { TOKENS } from '../../domain/shared/tokens';
+import { TOKENS } from '@domain/shared/tokens';
 import { TableTypeOrmRepository } from './repositories/table-typeorm.repository';
 import { PlayerTypeOrmRepository } from './repositories/player-typeorm.repository';
 

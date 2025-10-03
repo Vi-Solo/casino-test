@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Patch, Post, Query } from '@nestjs/common';
-import { PlayersService } from '../../../application/players/players.service';
-import { CreatePlayerDto, UpdatePlayerDto } from '../dto/player.dto';
-import { PaginationDto } from '../dto/pagination.dto';
+import { PlayersService } from '@application/players/players.service';
+import { CreatePlayerDto, UpdatePlayerDto } from '@interfaces/http/dto/player.dto';
+import { PaginationDto } from '@interfaces/http/dto/pagination.dto';
 
 @Controller('players')
 export class PlayersController {
@@ -9,7 +9,7 @@ export class PlayersController {
 
   @Post()
   create(@Body() dto: CreatePlayerDto) {
-    return this.playersService.create({ name: dto.name, tableId: dto.tableId });
+    return this.playersService.create({ name: dto.name, email: dto.email, tableId: dto.tableId });
   }
 
   @Get()

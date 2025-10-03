@@ -1,10 +1,10 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { TableRepository } from '../../../domain/table/table.repository';
-import { Table } from '../../../domain/table/table';
+import { TableRepository } from '@domain/table/table.repository';
+import { Table } from '@domain/table/table';
 import { TableOrmEntity } from '../entities/table.orm-entity';
-import { Page, PageRequest } from '../../../domain/shared/pagination';
-import { ConflictError, NotFoundError } from '../../../domain/shared/errors';
+import { Page, PageRequest } from '@domain/shared/pagination';
+import { ConflictError, NotFoundError } from '@domain/shared/errors';
 
 const PG_UNIQUE_VIOLATION = '23505';
 

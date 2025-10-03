@@ -10,10 +10,22 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
+      "@application/*": ["src/application/*"],
+      "@domain/*": ["src/domain/*"],
+      "@infra/*": ["src/infra/*"],
+      "@interfaces/*": ["src/interfaces/*"],
+      "@config/*": ["src/config/*"]
+    },
     "incremental": true,
     "strict": true,
     "skipLibCheck": true,
     "esModuleInterop": true
   },
   "include": ["src/**/*"]
+  ,
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
 } 

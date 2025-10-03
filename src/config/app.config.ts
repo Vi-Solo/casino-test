@@ -12,6 +12,8 @@ export interface AppConfig {
   };
   typeorm: {
     logging: boolean;
+    synchronize: boolean;
+    migrationsDir: string;
   };
 }
 
@@ -40,6 +42,8 @@ const config = (): AppConfig => ({
   },
   typeorm: {
     logging: toBoolean(process.env.TYPEORM_LOGGING, false),
+    synchronize: toBoolean(process.env.TYPEORM_SYNCHRONIZE, false),
+    migrationsDir: process.env.TYPEORM_MIGRATIONS_DIR ?? 'src/migrations',
   },
 });
 

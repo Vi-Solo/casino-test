@@ -1,7 +1,7 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { TableOrmEntity } from './entities/table.orm-entity';
 import { PlayerOrmEntity } from './entities/player.orm-entity';
-import appConfig from '../../config/app.config';
+import appConfig from '@config/app.config';
 
 export function typeOrmConfig(): TypeOrmModuleOptions {
   const cfg = appConfig();
@@ -13,7 +13,8 @@ export function typeOrmConfig(): TypeOrmModuleOptions {
     password: cfg.database.password,
     database: cfg.database.database,
     entities: [TableOrmEntity, PlayerOrmEntity],
-    synchronize: true,
+    synchronize: cfg.typeorm.synchronize,
+    migrations: [`${cfg.typeorm.migrationsDir}/*.{ts,js}`],
     logging: cfg.typeorm.logging,
   };
 } 

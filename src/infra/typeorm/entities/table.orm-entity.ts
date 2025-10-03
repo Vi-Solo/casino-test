@@ -1,4 +1,4 @@
-import { Column, Entity, Index, OneToMany, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn, Unique } from 'typeorm';
 import { PlayerOrmEntity } from './player.orm-entity';
 
 @Entity({ name: 'tables' })

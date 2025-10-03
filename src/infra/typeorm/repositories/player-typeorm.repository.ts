@@ -1,15 +1,15 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { PlayerRepository } from '../../../domain/player/player.repository';
-import { Player } from '../../../domain/player/player';
+import { PlayerRepository } from '@domain/player/player.repository';
+import { Player } from '@domain/player/player';
 import { PlayerOrmEntity } from '../entities/player.orm-entity';
-import { Page, PageRequest } from '../../../domain/shared/pagination';
-import { ConflictError, NotFoundError } from '../../../domain/shared/errors';
+import { Page, PageRequest } from '@domain/shared/pagination';
+import { ConflictError, NotFoundError } from '@domain/shared/errors';
 
 const PG_UNIQUE_VIOLATION = '23505';
 
 function toDomain(entity: PlayerOrmEntity): Player {
-  return { id: entity.id, name: entity.name, tableId: entity.tableId };
+  return { id: entity.id, name: entity.name, email: entity.email, tableId: entity.tableId };
 }
 
 export class PlayerTypeOrmRepository implements PlayerRepository {
@@ -20,12 +20,19 @@ export class PlayerTypeOrmRepository implements PlayerRepository {
 
   async create(player: Omit<Player, 'id'>): Promise<Player> {
     try {
-      const created = this.repo.create({ name: player.name, tableId: player.tableId });
+      const created = this.repo.create({ name: player.name, email: player.email, tableId: player.tableId });
       const saved = await this.repo.save(created);
       return toDomain(saved);
     } catch (e: any) {
       if (e?.code === PG_UNIQUE_VIOLATION) {
-        throw new ConflictError('Player with this name already exists in the table');
+        const detail: string = e?.detail ?? '';
+        if (detail.includes('(email)')) {
+          throw new ConflictError('Email already exists');
+        }
+        if (detail.includes('(name, tableId)')) {
+          throw new ConflictError('Player with this name already exists in the table');
+        }
+        throw new ConflictError('Unique constraint violation');
       }
       throw e;
     }
@@ -71,7 +78,14 @@ export class PlayerTypeOrmRepository implements PlayerRepository {
       return toDomain(updated);
     } catch (e: any) {
       if (e?.code === PG_UNIQUE_VIOLATION) {
-        throw new ConflictError('Player with this name already exists in the table');
+        const detail: string = e?.detail ?? '';
+        if (detail.includes('(email)')) {
+          throw new ConflictError('Email already exists');
+        }
+        if (detail.includes('(name, tableId)')) {
+          throw new ConflictError('Player with this name already exists in the table');
+        }
+        throw new ConflictError('Unique constraint violation');
       }
       throw e;
     }

@@ -1,8 +1,8 @@
 import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Patch, Post, Query } from '@nestjs/common';
-import { TablesService } from '../../../application/tables/tables.service';
-import { CreateTableDto, UpdateTableDto } from '../dto/table.dto';
-import { PaginationDto } from '../dto/pagination.dto';
-import { PlayersService } from '../../../application/players/players.service';
+import { TablesService } from '@application/tables/tables.service';
+import { CreateTableDto, UpdateTableDto } from '@interfaces/http/dto/table.dto';
+import { PaginationDto } from '@interfaces/http/dto/pagination.dto';
+import { PlayersService } from '@application/players/players.service';
 
 @Controller('tables')
 export class TablesController {

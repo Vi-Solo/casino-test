@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { PlayerRepository } from '../../domain/player/player.repository';
-import { Player } from '../../domain/player/player';
-import { Page, PageRequest } from '../../domain/shared/pagination';
-import { TOKENS } from '../../domain/shared/tokens';
-import { NotFoundError, ValidationError } from '../../domain/shared/errors';
-import { TableRepository } from '../../domain/table/table.repository';
+import { PlayerRepository } from '@domain/player/player.repository';
+import { Player } from '@domain/player/player';
+import { Page, PageRequest } from '@domain/shared/pagination';
+import { TOKENS } from '@domain/shared/tokens';
+import { NotFoundError, ValidationError } from '@domain/shared/errors';
+import { TableRepository } from '@domain/table/table.repository';
 
 @Injectable()
 export class PlayersService {

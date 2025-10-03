@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { TableRepository } from '../../domain/table/table.repository';
-import { Table } from '../../domain/table/table';
-import { Page, PageRequest } from '../../domain/shared/pagination';
-import { TOKENS } from '../../domain/shared/tokens';
-import { NotFoundError } from '../../domain/shared/errors';
+import { TableRepository } from '@domain/table/table.repository';
+import { Table } from '@domain/table/table';
+import { Page, PageRequest } from '@domain/shared/pagination';
+import { TOKENS } from '@domain/shared/tokens';
+import { NotFoundError } from '@domain/shared/errors';
 
 @Injectable()
 export class TablesService {

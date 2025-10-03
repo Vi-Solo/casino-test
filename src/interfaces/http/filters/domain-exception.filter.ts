@@ -1,10 +1,10 @@
-import { ArgumentsHost, Catch, ExceptionFilter, HttpStatus, HttpException } from '@nestjs/common';
+import { ArgumentsHost, Catch, ExceptionFilter, HttpStatus } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { DomainError, NotFoundError, ConflictError, ValidationError } from '../../../domain/shared/errors';
+import { DomainError, NotFoundError, ConflictError, ValidationError } from '@domain/shared/errors';
 
 @Catch(DomainError)
 export class DomainExceptionFilter implements ExceptionFilter {
-  catch(exception: DomainError | HttpException, host: ArgumentsHost): void {
+  catch(exception: DomainError, host: ArgumentsHost): void {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
@@ -19,7 +19,7 @@ export class DomainExceptionFilter implements ExceptionFilter {
     });
   }
 
-  private mapException(exception: DomainError | HttpException): { status: number; message: string } {
+  private mapException(exception: DomainError): { status: number; message: string } {
     if (exception instanceof NotFoundError) {
       return { status: HttpStatus.NOT_FOUND, message: exception.message };
     }
@@ -29,6 +29,9 @@ export class DomainExceptionFilter implements ExceptionFilter {
     if (exception instanceof ValidationError) {
       return { status: HttpStatus.BAD_REQUEST, message: exception.message };
     }
-    return { status: HttpStatus.INTERNAL_SERVER_ERROR, message: 'Internal server error' };
+    return { status: HttpStatus.BAD_REQUEST, message: exception.message };
   }
-} 
+}
+
+
+
